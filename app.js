@@ -18,7 +18,7 @@ const LocalStrategy = require('passport-local');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const mongoSanitize = require('express-mongo-sanitize'); // for handling mongo injection
 const helmet = require("helmet"); //Helmet helps secure  Express apps by setting various HTTP headers
-const db_url = proces.env.DB_URL || 'mongodb://localhost:27017/campgrounds';
+const db_url = process.env.DB_URL || 'mongodb://localhost:27017/campgrounds';
 // || for development mode 
 
 const mongostore = require('connect-mongo'); // for storing sessions on our mongo DB
@@ -136,8 +136,10 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('campgrounds/error', { err })
 })
 
-app.listen(3000, () => {
-    console.log("On port 3000!");
+const port=process.env.port || 3000;  
+
+app.listen(port, () => {
+    console.log(`On port ${port}!`);
 })
 
 // .gitignore tells git to ignore .env and node_modules file 
