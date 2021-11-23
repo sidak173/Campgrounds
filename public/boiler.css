@@ -8,6 +8,10 @@ body{
 main{
     background-color: #f6f6f4;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-content: center;
 }
 .footer{
     background-color: white;
@@ -47,4 +51,8 @@ main{
 }
 a{
   text-decoration: none;
+}
+#map{
+  flex-basis: 30em;
+  flex-grow: 1;
 }
