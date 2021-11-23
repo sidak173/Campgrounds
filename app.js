@@ -98,7 +98,7 @@ passport.deserializeUser(function (user, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/google/callback", // url after  login to google
+    callbackURL: "http://protected-everglades-66881.herokuapp.com/google/callback", // url after  login to google http://localhost:3000/google/callback -dev
     passReqToCallback: true
 },
     function (request, accessToken, refreshToken, profile, done) {
