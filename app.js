@@ -1,6 +1,6 @@
 if (process.env.NODE_ENV !== 'production') {
     // enviroment variable which is either development or production
-    require('dotenv').config();
+    require('dotenv').config(); 
     // this takes variables in .env file and adds them to process.env
     // used in development mode
 }
@@ -136,7 +136,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('campgrounds/error', { err })
 })
 
-const port=process.env.port || 3000;  
+const port=process.env.PORT || 3000;   // port added in by heroku
 
 app.listen(port, () => {
     console.log(`On port ${port}!`);
