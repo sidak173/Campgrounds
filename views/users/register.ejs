@@ -1,0 +1,66 @@
+<% layout('layout/boilerplate') %>
+    <div class="container">
+        <div class="row mb-3 mt-3">
+            <div class="col-6 offset-3 card">
+                <div class="card-body ">
+                    <h3 class="text-center fw-bold text-primary">Register</h3>
+                    <form action="/register" method="post" novalidate class="needs-validation">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" id="username" name="username" class="form-control mb-auto"
+                                placeholder="Username" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Enter Username.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" class="form-control"
+                                placeholder="Password" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Enter the Password.
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Email"
+                                required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Enter your Email ID.
+                            </div>
+                        </div>
+                        <div class="list-group list-group-flush">
+                            <button class="btn btn-success mb-4">Sign Up</button>
+                            <div
+                                class="text-muted text-center   d-flex flex-direction-column align-items-center justify-content-around mb-4">
+                                <div class="line-separator me-3 "></div>
+                                <div class="">Or connect with</div>
+                                <div class="line-separator ms-3"></div>
+                            </div>
+                            <a class="btn  btn-light text-primary border-primary mb-4" href="/google">
+                                <img width="15px" style="margin-bottom:3px; margin-right:5px" alt="Google login"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                Sign in with Google
+                            </a>
+                            <div
+                                class="text-muted text-center  d-flex flex-direction-column align-items-center justify-content-around mb-3">
+                                <div class="line-separator me-3"></div>
+                                <div>Already have an Acount?</div>
+                                <div class="line-separator ms-3"></div>
+                            </div>
+                            <a href="/login" class="text-center">Login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,49 @@
+html{
+  background-color: #f6f6f4;
+
+}
+body{
+  overflow-x: hidden;
+}
+main{
+    background-color: #f6f6f4;
+}
+.footer{
+    background-color: white;
+}
+.navbar{
+    background-color: white;
+    font-weight: 700;
+}
+.nav-item {
+  display: inline-block;
+  position: relative;
+  color: black;
+  font-weight: 800;
+}
+
+.nav-item:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  transform-origin: bottom right;
+  transition: transform 0.26s ease-out;
+}
+
+.nav-item:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.line-separator{
+  background-color: #ccc;
+    flex-grow: 5;
+    height: 0.1em;
+}
+a{
+  text-decoration: none;
+}

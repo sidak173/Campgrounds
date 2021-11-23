@@ -1,0 +1,206 @@
+<% layout('layout/boilerplate') %>
+    <link rel="stylesheet" href="/stars.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js"></script>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="mb-4 col-6">
+                <div class="card mb-3">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <% i=0 %>
+                                <% for(let img of camp.images){ %>
+                                    <% if(img){ %>
+                                        <!--  preventing error if img deleted from cloud -->
+                                        <button type="button" data-bs-target="#carouselExampleIndicators"
+                                            data-bs-slide-to="<%=i%>" aria-label="Slide <%=i%>"
+                                            class="<%= i===0?'active':'' %>"></button>
+                                        <% ++i; %>
+                                            <% } %>
+                                                <% } %>
+
+                        </div>
+                        <div class="carousel-inner">
+                            <% i=0 %>
+                                <% for(let img of camp.images){ %>
+                                    <% if(img){ %>
+                                        <div class="carousel-item <%= i===0?'active':'' %> ">
+                                            <img src=" <%=img.url%>" class="d-block w-100 img-fluid card-img-top mb-3"
+                                                alt="...">
+                                            <% if(currentuser && camp.author.username==currentuser.username){ %>
+
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <form
+                                                        action="/campgrounds/<%=camp.id%>/deleteimg?_method=DELETE&path=<%=img.url%>&filename=<%=img.filename%>"
+                                                        method="post" class="d-inline">
+                                                        <button class="btn btn-danger btn-sm">
+                                                            Delete
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor" class="bi bi-trash"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                                <path fill-rule="evenodd"
+                                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                <% } %>
+                                        </div>
+                                        <% i=1%>
+                                            <% } %>
+                                                <% } %>
+
+                        </div>
+                        <% if(camp.images.length>1){ %>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                            <% } %>
+                    </div>
+
+                    <div class="card-title ps-3 pe-3">
+                        <h5 class="card-title fw-bold">
+                            <%= camp.title %>
+                        </h5>
+                        <p class="card-text">
+                            <%= camp.description %>
+                        </p>
+                    </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-muted">
+                                <%=camp.location %>
+                            </li>
+                            <li class="list-group-item">
+                                ₹<%=camp.price%>
+                            </li>
+                        </ul>
+                    <% if(currentuser && camp.author.username==currentuser.username){ %>
+                        <div class="card-body d-flex justify-content-around">
+                            <a href="/campgrounds/<%=camp.id%>/edit" class="btn btn-primary">Edit
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil" viewBox="0 0 16 16">
+                                    <path
+                                        d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                </svg>
+
+                            </a>
+                            <form action="/campgrounds/<%=camp.id%>?_method=DELETE" method="post" class="d-inline">
+                                <button class="btn btn-danger">Delete<svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                        height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path
+                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                        <path fill-rule="evenodd"
+                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                    </svg></button>
+                            </form>
+                        </div>
+                        <div class="card-body">
+                            <form action="/campgrounds/<%=camp.id%>/upload?_method=PATCH" method="post" class="d-inline"
+                                multiple enctype="multipart/form-data">
+                                <div class="mb-3 input-group">
+                                    <input type="file" name="images" multiple class="form-control">
+                                    <span class="input-group-addon"><button class="btn btn-secondary">Add
+                                            Images <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                                              </svg>
+                                            </button>
+                                        </span>
+                                </div>
+
+                            </form>
+                        </div>
+                        <% } %>
+                            <div class="card-footer text-muted">
+                                Submitted by <%=camp.author.username%>
+                            </div>
+                </div>
+
+            </div>
+            <div class="mb-3 col-6">
+                <div id="map" style="height: 23rem; width:30rem;" class="mb-3 mt-1"></div>
+                <% if(currentuser){ %>
+                    <h3 class="fw-bold">Leave A Review</h3>
+                    <form action="/campgrounds/<%=camp._id%>/reviews" method="post" novalidate
+                        class="needs-validation mb-3">
+                        <label for="no-rate" class="form-label text-muted">Rating</label>
+                        <fieldset class="starability-heart" requried>
+                            <input type="radio" id="no-rate" class="input-no-rate form-control" name="rating" value="3"
+                                required />
+                            <input type="radio" id="first-rate1" name="rating" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="rating" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="rating" value="3" checked />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="rating" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="rating" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                        </fieldset>
+                        <div class="mb-3">
+                            <label for="body" class="form-label">Review</label>
+                            <textarea name="body" id="body" cols="30" rows="3" class="form-control" required
+                                placeholder="Please Enter A Review"></textarea>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter the Review.
+                            </div>
+                        </div>
+                        <button class="btn btn-success">Submit</button>
+                    </form>
+                    <% } %>
+                    <% if(camp.reviews.length){ %> 
+                        <h3 class="mb-3 fw-bold">Reviews</h3>
+                        <% } %> 
+                        <div>
+                            <% for(let review of camp.reviews){ %>
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">
+                                            <%=review.author.username%>
+                                        </h5>
+                                        <p class="starability-result" data-rating="<%=review.rating%>">
+                                            Rated: 3 stars
+                                        </p>
+                                        <p class="card-text">
+                                            <%=review.body%>
+                                        </p>
+                                        <% if(currentuser &&currentuser.equals(review.author)) {%>
+                                            <form
+                                                action="/campgrounds/<%=camp._id%>/reviews/<%=review._id%>?_method=DELETE"
+                                                method="post">
+                                                <button class="btn btn-danger">Delete
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                            <% } %>
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        mapboxgl.accessToken = '<%=process.env.MAPBOX_TOKEN%>';
+        const geometry = <%-camp.geometry %>
+    </script>
+    <script src="/map.js"></script>

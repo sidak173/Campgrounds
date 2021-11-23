@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="boiler.css">
+
+
+<nav class="navbar navbar-expand-lg navbar-light sticky-top border-bottom border-2 px-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">CampGrounds</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto ">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/campgrounds">All Campgrounds</a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/campgrounds/new">New Campground</a>
+                </li>
+            </ul>
+            <div class="ms-auto">
+                <ul class="navbar-nav me-auto ">
+                    <% if(!currentuser){ %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                        <% }else{ %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Logout</a>
+                            </li>
+                            <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script src="/activelink.js"></script>
