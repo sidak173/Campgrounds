@@ -63,8 +63,8 @@ app.use(session({
     cookie: {
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // Date.now() is in miliseconds cookie expires after 1 week
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        secure:true, // cookies should work over HTTPS, this breaks our authentication over localhost since local host is not HTTPS
-        // httpOnly: true // prevents cookie from being accesed by client side scripts (securtiy). They can be accesed over HTTP only
+        // secure:true, // cookies should work over HTTPS, this breaks our authentication over localhost since local host is not HTTPS
+        httpOnly: true // prevents cookie from being accesed by client side scripts (securtiy). They can be accesed over HTTP only
     },
     store: mongostore.create({  // creates a new sessions collection in our Databse
         mongoUrl: db_url,
