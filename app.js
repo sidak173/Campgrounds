@@ -34,7 +34,7 @@ const userroutes = require('./routes/users')
 const app = express();
 
 
-mongoose.connect(db_url)
+mongoose.connect(db_url);
 
 
 app.engine('ejs', ejsmate);

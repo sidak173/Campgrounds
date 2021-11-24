@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
+
+require('dotenv').config();
+
 const Campground = require('../models/campgrounds')
 const cities = require('./cities');
 const { descriptors, places } = require('./helpers');
 
-mongoose.connect('mongodb://localhost:27017/campgrounds')
+mongoose.connect(process.env.DB_URL);  // or mongodb://localhost:27017/campgrounds
 
 
 // File for seeding our database
@@ -20,11 +23,12 @@ const seedDb = async () => {
         const camp = new Campground({
             location: `${cities[random406].city},${cities[random406].admin_name}`,
             title: `${descriptors[r1]} ${places[r2]}`,
-            images: [{ url: "https://res.cloudinary.com/dy7obwtqp/image/upload/v1637457582/Campgrounds/cjhhnitcfgteuxdy83z1.jpg", filename: "Campgrounds/cjhhnitcfgteuxdy83z1" },
-            { url: "https://res.cloudinary.com/dy7obwtqp/image/upload/v1637457583/Campgrounds/udoiusgbjikhyyk4uxz1.jpg", filename: "Campgrounds/udoiusgbjikhyyk4uxz1" }],
+            images: [{ url: "https://res.cloudinary.com/dy7obwtqp/image/upload/v1637707425/Campgrounds/ybb2h3o2qrnc9xsbmxml.jpg", filename: "Campgrounds/udoiusgbjikhyyk4uxz1" },
+            { url: "https://res.cloudinary.com/dy7obwtqp/image/upload/v1637460059/Campgrounds/su1ujlezvwh6t8kvpetz.jpg", filename: "Campgrounds/cjhhnitcfgteuxdy83z1" }
+            ],
             description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, repellat modi! Nam ab suscipit reprehenderit ut. Tenetur nihil animi dolorem maxime ratione nam culpa dicta quam exercitationem. Fuga, nobis cumque?',
             price: price,
-            author: '619d102dd3307764aaf1eaf5',
+            author: '619d471c404c1ece54c7285e',
             geometry: {
                 type: 'Point',
                 coordinates: [cities[random406].lng, cities[random406].lat]
