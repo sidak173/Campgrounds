@@ -24,7 +24,6 @@ module.exports.getcampground = wrapasync(async (req, res) => {
             path: 'author'                   // nested populated - populate reviews on campground then populate author on reviews
         }
     }).populate('author');
-    console.log(camp.author)
     if (!camp) {
         req.flash('error', 'Cannot Find that Campground');
         res.redirect('/campgrounds');
@@ -63,7 +62,6 @@ module.exports.editform = wrapasync(async (req, res) => {
         res.redirect('/campgrounds');
     }
     res.render('campgrounds/edit', { camp });
-
 })
 
 module.exports.editcampground = wrapasync(async (req, res) => {

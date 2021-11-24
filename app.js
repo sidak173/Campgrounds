@@ -18,7 +18,7 @@ const LocalStrategy = require('passport-local');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const mongoSanitize = require('express-mongo-sanitize'); // for handling mongo injection
 const helmet = require("helmet"); //Helmet helps secure  Express apps by setting various HTTP headers
-const db_url = process.env.DB_URL || 'mongodb://localhost:27017/campgrounds';
+const db_url = 'mongodb://localhost:27017/campgrounds';
 // || for development mode 
 
 const mongostore = require('connect-mongo'); // for storing sessions on our mongo DB
@@ -64,7 +64,7 @@ app.use(session({
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // Date.now() is in miliseconds cookie expires after 1 week
         maxAge: 1000 * 60 * 60 * 24 * 7,
         secure:true, // cookies should work over HTTPS, this breaks our authentication over localhost since local host is not HTTPS
-        httpOnly: true // prevents cookie from being accesed by client side scripts (securtiy). They can be accesed over HTTP only
+        // httpOnly: true // prevents cookie from being accesed by client side scripts (securtiy). They can be accesed over HTTP only
     },
     store: mongostore.create({  // creates a new sessions collection in our Databse
         mongoUrl: db_url,
