@@ -34,7 +34,7 @@ const userroutes = require('./routes/users')
 const app = express();
 
 
-mongoose.connect(db_url);
+mongoose.connect(db_url);  // or use localhost:
 
 
 app.engine('ejs', ejsmate);
@@ -113,7 +113,6 @@ app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     res.locals.currentuser = req.user;
-    console.log(req.user);
     next();
 })
 
